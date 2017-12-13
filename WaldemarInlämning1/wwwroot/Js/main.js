@@ -160,4 +160,34 @@ $("body").on("click", ".saveEditButton", function () {
             console.log("Error", xhr, status, error);
 
         })
+
+
+
+});
+
+$("body").on("click", "#mailServerButton", function () {
+
+    $.ajax({
+        url: '/api/Customers/mailServerInfo',
+        method: 'GET',
+        data: {
+        }
+
+    })
+        .done(function (result) {
+            $("#showMailServerId").html("mailserver: "+result.mailServerHostName+" sendmail: "+result.sendMail+" log sent mail: "+result.logEverySentMail+" blind copy adress: "+result.blindCopyAddresses);
+           
+            console.log(status);
+
+        })
+
+        .fail(function (xhr, status, error) {
+
+            alert(`Fail!`)
+            console.log("Error", xhr, status, error);
+
+        })
+
+
+
 });

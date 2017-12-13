@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WaldemarInlämning1.Entities;
+using WaldemarInlämning1.Models;
 
 namespace CustomerRegisterDatabase.Controllers
 {
@@ -11,10 +14,14 @@ namespace CustomerRegisterDatabase.Controllers
     public class CustomerController : Controller
     {
         private DatabaseContext databaseContext;
+        private IHostingEnvironment env;
+        private MailConfiguration mailConfiguration;
 
-        public CustomerController(DatabaseContext databaseContext)
+        public CustomerController(DatabaseContext databaseContext, IHostingEnvironment env, MailConfiguration mailConfiguration, IConfiguration iconfiguration)
         {
             this.databaseContext = databaseContext;
+            this.env = env;
+            this.mailConfiguration = mailConfiguration;
         }
 
         [HttpPost]
@@ -95,9 +102,7 @@ namespace CustomerRegisterDatabase.Controllers
                     cust.Age = customer.Age;
                     cust.Email = customer.Email;
                     cust.Gender = customer.Gender;
-
                 }
-
             }
             String AllowedEmail = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
             String AllowedChars = @"^[a-zA-Z0-9]*$";
@@ -105,14 +110,31 @@ namespace CustomerRegisterDatabase.Controllers
             {
                 databaseContext.SaveChanges();
                 return Ok(customer.Id);
-
             }
             else
             {
                 return BadRequest();
             }
-           
+        }
+        [HttpGet, Route("env")]
+        public IActionResult Env()
+        {
 
+            return Ok(new object[] {
+                    "production mode: "+env.IsProduction(),
+                    "development mode: "+env.IsDevelopment(),
+                   "app name: "+env.ApplicationName,
+                   "content root path: "+env.ContentRootPath,
+                   "environment name: "+env.EnvironmentName,
+                   "web root path: "+env.WebRootPath
+                });
+        }
+
+        [HttpGet, Route("mailServerInfo")]
+        public IActionResult MailServerInfo()
+        {
+           
+            return Ok(mailConfiguration);
         }
 
     }

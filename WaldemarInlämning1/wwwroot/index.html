@@ -5,22 +5,31 @@
     <title></title>
 </head>
 <body>
+   
+    <form>
+        <button style="position: fixed; bottom: 15px;" type="submit" formaction="/api/customers/env">Site info</button>
+    </form>
 
     <div id="addCustomerForm">
         <label>Lägg till i databasen</label>
         <input type="text" name="FirstName" value="Sven" />
         <input name="LastName" value="Svensson" />
-        <input name="Age" value="99"  />
+        <input name="Age" value="99" />
         <input name="Email" value="Sven@svensson.com" />
         <input name="Gender" value="other" />
         <button>spara</button>
     </div>
 
     <div id="editCustomerForm"></div>
-<div id="showAllCustomers">
-    <button>Visa alla kunder</button>
-</div>
+    
+    <div id="showAllCustomers">
+        <button>Visa alla kunder</button>
+    </div>
+
     <div id="showAllCustomersId"></div>
+
+    <button id="mailServerButton">Mail server info</button>
+    <div id="showMailServerId"></div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

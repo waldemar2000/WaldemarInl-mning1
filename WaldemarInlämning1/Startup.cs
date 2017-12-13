@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WaldemarInlämning1.Entities;
 using Microsoft.EntityFrameworkCore;
+using WaldemarInlämning1.Models;
 
 namespace WaldemarInlämning1
 {
@@ -28,6 +29,7 @@ namespace WaldemarInlämning1
             services.AddDbContext<DatabaseContext>(options =>
 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
+            services.AddSingleton(Configuration.GetSection("MailConfiguration").Get<MailConfiguration>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
