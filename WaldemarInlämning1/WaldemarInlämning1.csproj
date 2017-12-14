@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="wwwroot\Secrethtml\SubSecrethtml\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,36 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_CustomFiles Include="$(MSBuildProjectDirectory)/DataFilesLocal/**/*" />
+    <DotnetPublishFiles Include="@(_CustomFiles)">
+      <DestinationRelativePath>DataFiles/%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+    </DotnetPublishFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_CustomFiles Include="$(MSBuildProjectDirectory)../Djur/**/*" />
+    <DotnetPublishFiles Include="@(_CustomFiles)">
+      <DestinationRelativePath>Djur/%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+    </DotnetPublishFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/notForPublish.html" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/Secrethtml/**/*" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/Secrethtml/**/*" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/secret*" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
 </Project>
